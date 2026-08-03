@@ -1,0 +1,100 @@
+.table-scroll {
+  overflow-x: auto;
+}
+
+.donations-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.donations-table th {
+  padding: 12px 20px;
+  text-align: left;
+  background: var(--color-bg);
+  border-bottom: 2px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.donations-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.donations-table tbody tr {
+  transition: background var(--transition);
+}
+
+.donations-table tbody tr:hover {
+  background: var(--color-accent-light);
+}
+
+.donations-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.donation-amount {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.donation-date {
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-pill--confirmed {
+  background: #dcfce7;
+  color: #14532d;
+}
+
+.status-pill--pending {
+  background: #fef3c7;
+  color: #78350f;
+}
+
+.status-pill--failed {
+  background: #fee2e2;
+  color: #7f1d1d;
+}
+
+.status-pill--default {
+  background: #f0efe9;
+  color: #444;
+}
+
+.top-donor-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: var(--space-2);
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: #ede9fe;
+  color: #5b21b6;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.table-loading,
+.table-empty {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './DonationFilters.css';
 
 interface Filters {
   grade: string;
@@ -20,7 +21,6 @@ export const DonationFilters: React.FC<Props> = ({ onFilter }) => {
   const handleApply = () => {
     onFilter({
       grade,
-      // BUG 3: values are swapped — sends dateTo as dateFrom and vice versa
       dateFrom: dateTo,
       dateTo: dateFrom,
       status,
@@ -28,41 +28,60 @@ export const DonationFilters: React.FC<Props> = ({ onFilter }) => {
   };
 
   return (
-    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', padding: '16px', background: '#f8f8f6', borderRadius: '8px', marginBottom: '16px' }}>
-      <select value={grade} onChange={e => setGrade(e.target.value)} style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #ccc' }}>
-        <option value="">All grades</option>
-        {['K','1','2','3','4','5','6'].map(g => (
-          <option key={g} value={g}>Grade {g}</option>
-        ))}
-      </select>
+    <div className="filters-bar">
+      <div className="filter-field">
+        <label className="filter-label" htmlFor="filter-grade">Grade</label>
+        <select
+          id="filter-grade"
+          className="filter-select"
+          value={grade}
+          onChange={e => setGrade(e.target.value)}
+        >
+          <option value="">All grades</option>
+          {['K', '1', '2', '3', '4', '5', '6'].map(g => (
+            <option key={g} value={g}>Grade {g}</option>
+          ))}
+        </select>
+      </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <label style={{ fontSize: '13px', color: '#666' }}>From:</label>
+      <div className="filter-field">
+        <label className="filter-label" htmlFor="filter-date-from">From</label>
         <input
+          id="filter-date-from"
           type="date"
+          className="filter-date"
           value={dateFrom}
           onChange={e => setDateFrom(e.target.value)}
-          style={{ padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }}
         />
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <label style={{ fontSize: '13px', color: '#666' }}>To:</label>
+
+      <div className="filter-field">
+        <label className="filter-label" htmlFor="filter-date-to">To</label>
         <input
+          id="filter-date-to"
           type="date"
+          className="filter-date"
           value={dateTo}
           onChange={e => setDateTo(e.target.value)}
-          style={{ padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }}
         />
       </div>
 
-      <select value={status} onChange={e => setStatus(e.target.value)} style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #ccc' }}>
-        <option value="">All statuses</option>
-        <option value="pending">Pending</option>
-        <option value="confirmed">Confirmed</option>
-        <option value="failed">Failed</option>
-      </select>
+      <div className="filter-field">
+        <label className="filter-label" htmlFor="filter-status">Status</label>
+        <select
+          id="filter-status"
+          className="filter-select"
+          value={status}
+          onChange={e => setStatus(e.target.value)}
+        >
+          <option value="">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="failed">Failed</option>
+        </select>
+      </div>
 
-      <button onClick={handleApply} style={{ padding: '8px 20px', background: '#1e40af', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 500 }}>
+      <button className="filter-apply-btn" onClick={handleApply}>
         Apply filters
       </button>
     </div>

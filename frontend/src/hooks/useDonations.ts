@@ -7,6 +7,7 @@ export interface Donation {
   grade: string;
   donatedAt: string;
   status: 'pending' | 'confirmed' | 'failed';
+  isTopDonor?: boolean;
 }
 
 export function useDonations(filters: Record<string, string>) {

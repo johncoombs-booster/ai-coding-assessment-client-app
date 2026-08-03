@@ -9,6 +9,7 @@ export interface Donation {
   grade: string;
   donatedAt: string;
   status: DonationStatus;
+  isTopDonor?: boolean;
 }
 
 export interface FilterDonationsDto {
@@ -16,19 +17,22 @@ export interface FilterDonationsDto {
   dateFrom?: string;
   dateTo?: string;
   status?: string;
+  amount?: number;
+  page?: number;
+  pageSize?: number;
 }
 
 const SEED_DATA: Donation[] = [
-  { id: 1,  donorName: 'Alice Martin',   amount: 50,  grade: 'K', donatedAt: '2024-03-01', status: 'confirmed' },
-  { id: 2,  donorName: 'Bob Chen',       amount: 120, grade: '1', donatedAt: '2024-03-05', status: 'pending'   },
-  { id: 3,  donorName: 'Carol Davis',    amount: 75,  grade: '2', donatedAt: '2024-03-10', status: 'confirmed' },
-  { id: 4,  donorName: 'Dan Lee',        amount: 200, grade: '3', donatedAt: '2024-03-12', status: 'confirmed' },
-  { id: 5,  donorName: 'Eve Wilson',     amount: 30,  grade: '4', donatedAt: '2024-03-15', status: 'failed'    },
-  { id: 6,  donorName: 'Frank Brown',    amount: 90,  grade: '5', donatedAt: '2024-03-18', status: 'pending'   },
-  { id: 7,  donorName: 'Grace Kim',      amount: 150, grade: '6', donatedAt: '2024-03-20', status: 'confirmed' },
-  { id: 8,  donorName: 'Henry Park',     amount: 60,  grade: 'K', donatedAt: '2024-03-22', status: 'pending'   },
-  { id: 9,  donorName: 'Iris Patel',     amount: 80,  grade: '2', donatedAt: '2024-03-25', status: 'confirmed' },
-  { id: 10, donorName: 'Jack Nguyen',    amount: 45,  grade: '3', donatedAt: '2024-03-28', status: 'failed'    },
+  { id: 1,  donorName: 'Alice Martin',   amount: 50,  grade: 'K', donatedAt: '2024-03-01T09:15:00.000Z', status: 'confirmed' },
+  { id: 2,  donorName: 'Bob Chen',       amount: 120, grade: '1', donatedAt: '2024-03-05T11:42:00.000Z', status: 'pending'   },
+  { id: 3,  donorName: 'Carol Davis',    amount: 75,  grade: '2', donatedAt: '2024-03-10T16:20:00.000Z', status: 'confirmed' },
+  { id: 4,  donorName: 'Dan Lee',        amount: 200, grade: '3', donatedAt: '2024-03-12T14:30:00.000Z', status: 'confirmed' },
+  { id: 5,  donorName: 'Eve Wilson',     amount: 30,  grade: '4', donatedAt: '2024-03-15T08:05:00.000Z', status: 'failed'    },
+  { id: 6,  donorName: 'Frank Brown',    amount: 90,  grade: '5', donatedAt: '2024-03-18T19:50:00.000Z', status: 'pending'   },
+  { id: 7,  donorName: 'Grace Kim',      amount: 150, grade: '6', donatedAt: '2024-03-20T13:10:00.000Z', status: 'confirmed' },
+  { id: 8,  donorName: 'Henry Park',     amount: 60,  grade: 'K', donatedAt: '2024-03-22T10:00:00.000Z', status: 'pending'   },
+  { id: 9,  donorName: 'Iris Patel',     amount: 80,  grade: '2', donatedAt: '2024-03-25T15:45:00.000Z', status: 'confirmed' },
+  { id: 10, donorName: 'Jack Nguyen',    amount: 45,  grade: '3', donatedAt: '2024-03-28T17:30:00.000Z', status: 'failed'    },
 ];
 
 @Injectable()
@@ -44,8 +48,8 @@ export class DonationsService {
 
     if (filters.dateFrom && filters.dateTo) {
       results = results.filter(d => {
-        const date = new Date(d.donatedAt);
-        return date >= new Date(filters.dateFrom!) && date <= new Date(filters.dateTo!);
+        const target = new Date(d.donatedAt);
+        return target >= new Date(filters.dateFrom!) && target <= new Date(filters.dateTo!);
       });
     }
 
@@ -53,8 +57,22 @@ export class DonationsService {
       results = results.filter(d => d.status === filters.status);
     }
 
-    return results.sort((a, b) =>
+    if (filters.amount) {
+      results = results.filter(d => d.amount === filters.amount);
+    }
+
+    if (filters.page && filters.pageSize) {
+      results = results.slice((filters.page - 1) * filters.pageSize, filters.page * filters.pageSize);
+    }
+
+    const sorted = results.sort((a, b) =>
       new Date(b.donatedAt).getTime() - new Date(a.donatedAt).getTime()
     );
+
+    if (sorted.length > 0) {
+      sorted[0].isTopDonor = true;
+    }
+
+    return sorted;
   }
 }
