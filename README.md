@@ -1,5 +1,11 @@
-# Maple Ridge Elementary — Fundraising Donations App
-## Interview Starter Project
+# Donations Dashboard Bug Bash
+
+## Description
+
+Our users have been complaining of bugs in our Donations Dashboard. Audit our site for bugs, fix any that can be reasonably fixed within ticket scope, and give a report of fixed bugs and current status after the fixes
+
+### Candidate Brief
+- **Brief**: Please read the [candidate brief](candidate-brief.html) before proceeding further.
 
 ### Stack
 - **Backend**: NestJS (TypeScript) — port 3001
