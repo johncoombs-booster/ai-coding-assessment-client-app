@@ -1,7 +1,7 @@
 {
   "name": "fundraising-frontend",
   "version": "1.0.0",
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:47101",
   "dependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

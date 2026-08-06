@@ -8,8 +8,8 @@ Our users have been complaining of bugs in our Donations Dashboard. Audit our si
 - **Brief**: Please read the [candidate brief](candidate-brief.html) before proceeding further.
 
 ### Stack
-- **Backend**: NestJS (TypeScript) — port 3001
-- **Frontend**: React + TypeScript (CRA) — port 3000
+- **Backend**: NestJS (TypeScript) — port 47101
+- **Frontend**: React + TypeScript (CRA) — port 47100
 
 ### Setup
 
@@ -18,7 +18,7 @@ Our users have been complaining of bugs in our Donations Dashboard. Audit our si
 cd backend
 npm install
 npm start
-# API available at http://localhost:3001/api/donations
+# API available at http://localhost:47101/api/donations
 ```
 
 #### Frontend
@@ -26,7 +26,7 @@ npm start
 cd frontend
 npm install
 npm start
-# App available at http://localhost:3000
+# App available at http://localhost:47100
 ```
 
 The frontend proxies `/api/*` to the backend automatically via the `proxy` field in `package.json`.
